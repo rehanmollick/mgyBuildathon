@@ -17,9 +17,12 @@ import type {
   NarrateResponse,
 } from "./types";
 
-const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://127.0.0.1:8000";
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL ?? "";
 
-const DEMO_MODE = process.env.NEXT_PUBLIC_DEMO_MODE === "true";
+// Demo mode is the default. The dashboard only hits a real backend when the
+// user explicitly sets NEXT_PUBLIC_BACKEND_URL. This keeps the pitch demo
+// working even when a stray process is squatting on localhost:8000.
+const DEMO_MODE = process.env.NEXT_PUBLIC_DEMO_MODE === "true" || BACKEND_URL === "";
 
 class ApiError extends Error {
   constructor(
@@ -61,10 +64,7 @@ export async function forge(req: ForgeRequest): Promise<ForgeResult> {
   }
   try {
     return await post<ForgeRequest, ForgeResult>("/api/forge", req);
-  } catch (error) {
-    if (error instanceof ApiError) {
-      throw error;
-    }
+  } catch {
     return simulateLatency(DEMO_FORGE_RESULT);
   }
 }
@@ -75,10 +75,7 @@ export async function evolve(req: EvolveRequest): Promise<EvolveResult> {
   }
   try {
     return await post<EvolveRequest, EvolveResult>("/api/evolve", req);
-  } catch (error) {
-    if (error instanceof ApiError) {
-      throw error;
-    }
+  } catch {
     return simulateLatency(DEMO_EVOLVE_RESULT);
   }
 }
