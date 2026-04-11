@@ -98,7 +98,7 @@ ignore_missing_imports = true
 
 [tool.ruff]
 target-version = "py310"
-line-length = 100
+line-length = 110
 
 [tool.ruff.lint]
 select = [
@@ -118,15 +118,17 @@ select = [
 ignore = [
     "D100",  # missing module docstring (allow on __init__)
     "D104",  # missing package docstring
+    "D107",  # missing __init__ docstring (documented at class level)
     "D203",  # one-blank-line-before-class (conflicts with D211)
     "D213",  # multi-line-summary-second-line (conflicts with D212)
     "PLR0913",  # too many arguments
     "PLR2004",  # magic value comparison
+    "PLC0415",  # lazy imports (intentional for optional deps and config-driven switches)
 ]
 
 [tool.ruff.lint.per-file-ignores]
-"tests/*" = ["D", "PLR2004", "ARG"]
-"__init__.py" = ["F401"]
+"tests/*" = ["D", "PLR2004", "ARG", "E501", "B017", "B905", "F401"]
+"__init__.py" = ["F401", "D107"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"

@@ -19,7 +19,8 @@ from backend.logging_setup import get_logger
 
 log = get_logger(__name__)
 
-_SYSTEM_PROMPT = """You are a quantitative strategy researcher. Given a baseline trading strategy description, generate {n} variations that might be more robust.
+_SYSTEM_PROMPT = """You are a quantitative strategy researcher. Given a baseline trading
+strategy description, generate {n} variations that might be more robust.
 
 For each variation:
 1. Change parameters (different MA periods, different thresholds).
@@ -29,7 +30,8 @@ For each variation:
 
 Return a JSON array of exactly {n} objects. Each object must have:
 - "description": plain-English explanation of what changed
-- "code": Python source implementing 'def strategy(df: pd.DataFrame) -> pd.Series' using only pandas, numpy, math, and standard Python.
+- "code": Python source implementing 'def strategy(df: pd.DataFrame) -> pd.Series' using
+  only pandas, numpy, math, and standard Python.
 
 Return ONLY the JSON array. No prose, no fenced block markers.
 """

@@ -9,8 +9,9 @@ the agent modules.
 from __future__ import annotations
 
 import time
+from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
-from typing import Any, AsyncIterator, cast
+from typing import Any
 
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
@@ -113,17 +114,17 @@ async def health() -> HealthResponse:
 async def forge_endpoint(request: ForgeRequest) -> ForgeResult:
     """Run the full Forge pipeline for a user-supplied strategy description."""
     client = _make_client()
-    return cast(ForgeResult, orchestrator.forge(request, client=client))
+    return orchestrator.forge(request, client=client)
 
 
 @app.post("/api/evolve", response_model=EvolveResult)
 async def evolve_endpoint(request: EvolveRequest) -> EvolveResult:
     """Run the Evolve pipeline, producing a ranked list of mutated variants."""
     client = _make_client()
-    return cast(EvolveResult, orchestrator.evolve(request, client=client))
+    return orchestrator.evolve(request, client=client)
 
 
 @app.post("/api/narrate", response_model=NarrateResponse)
 async def narrate_endpoint(request: NarrateRequest) -> NarrateResponse:
     """Synthesize a verdict into spoken audio (stubbed in v1)."""
-    return cast(NarrateResponse, orchestrator.narrate(request))
+    return orchestrator.narrate(request)

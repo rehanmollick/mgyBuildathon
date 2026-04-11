@@ -17,7 +17,8 @@ from backend.config import settings
 from backend.exceptions import ModelUnavailable
 from backend.models import BacktestResult
 
-_SYSTEM_PROMPT = """You are a senior quantitative analyst writing a plain-English verdict on a trading strategy's stress test.
+_SYSTEM_PROMPT = """You are a senior quantitative analyst writing a plain-English verdict on a
+trading strategy's stress test.
 
 You will be given these numbers:
 - real_total_return: the strategy's return on the real market
@@ -30,9 +31,12 @@ You will be given these numbers:
 
 Your job:
 1. Write a short "summary" (one sentence) for inline display.
-2. Write a "verdict" (3-5 sentences) suitable for narration. Explain what the numbers mean in language a smart retail trader could follow. Be honest — if the strategy looks overfit (percentile > 90), say so. If it looks robust (percentile near 50), say so. Never sugar-coat.
+2. Write a "verdict" (3-5 sentences) suitable for narration. Explain what the numbers mean in
+   language a smart retail trader could follow. Be honest: if the strategy looks overfit
+   (percentile > 90), say so. If it looks robust (percentile near 50), say so. Never sugar-coat.
 
-Return a JSON object with exactly two keys: "summary" and "verdict". No other keys, no prose outside the JSON.
+Return a JSON object with exactly two keys: "summary" and "verdict". No other keys, no prose
+outside the JSON.
 """
 
 
@@ -90,7 +94,10 @@ def _fallback_verdict() -> tuple[str, str]:
     """Safe fallback used when Claude's response cannot be parsed."""
     return (
         "Stress test complete.",
-        "The stress test finished, but the analyst could not produce a narrative verdict. Review the dashboard metrics for details.",
+        (
+            "The stress test finished, but the analyst could not produce a narrative verdict. "
+            "Review the dashboard metrics for details."
+        ),
     )
 
 

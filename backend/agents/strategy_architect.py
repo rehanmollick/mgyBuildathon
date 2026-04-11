@@ -28,7 +28,8 @@ _ALLOWED_IMPORTS: frozenset[str] = frozenset(
     {"pandas", "numpy", "math", "statistics", "typing", "collections", "itertools"}
 )
 
-_SYSTEM_PROMPT = """You are a quantitative finance code generator. Convert the user's trading strategy description into a Python function with this exact signature:
+_SYSTEM_PROMPT = """You are a quantitative finance code generator. Convert the user's trading
+strategy description into a Python function with this exact signature:
 
 def strategy(df: pd.DataFrame) -> pd.Series:
     \"\"\"Args:

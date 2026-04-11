@@ -115,7 +115,11 @@ def imagine(
     Returns:
         A ``MarketSet`` with the real reference and all synthetic scenarios.
     """
-    base_seed = seed if seed is not None else int(np.random.SeedSequence().entropy or 0)
+    if seed is not None:
+        base_seed = seed
+    else:
+        entropy = np.random.SeedSequence().entropy
+        base_seed = int(entropy) if isinstance(entropy, int) else 0
     real = _synthetic_real(asset, n_steps, base_seed)
     mu, sigma = _calibrate_from_real(real)
     start_price = float(real["close"].iloc[0])

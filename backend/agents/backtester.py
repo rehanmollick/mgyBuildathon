@@ -74,7 +74,7 @@ def _simulate_portfolio(
         elif position == 1 and prev_signal == -1:
             position = 0
 
-    return equity.tolist()
+    return [float(v) for v in equity]
 
 
 def _run_strategy_in_subprocess(
@@ -98,7 +98,7 @@ def _run_strategy_in_subprocess(
                 "map": map, "max": max, "min": min, "range": range, "reversed": reversed,
                 "round": round, "set": set, "sorted": sorted, "str": str, "sum": sum,
                 "tuple": tuple, "type": type, "zip": zip, "True": True, "False": False,
-                "None": None, "print": lambda *a, **k: None,
+                "None": None, "print": lambda *_a, **_k: None,
                 "__import__": __import__,
                 "Exception": Exception, "ValueError": ValueError, "TypeError": TypeError,
                 "KeyError": KeyError, "IndexError": IndexError, "ZeroDivisionError": ZeroDivisionError,
@@ -118,7 +118,13 @@ def _run_strategy_in_subprocess(
             return
         result = strategy_fn(df.copy())
         if not isinstance(result, pd.Series):
-            out_queue.put(("error", "StrategyExecutionError", f"strategy() returned {type(result).__name__}, expected pd.Series"))
+            out_queue.put(
+                (
+                    "error",
+                    "StrategyExecutionError",
+                    f"strategy() returned {type(result).__name__}, expected pd.Series",
+                )
+            )
             return
         out_queue.put(("ok", pickle.dumps(result)))
     except Exception as exc:  # noqa: BLE001 — intentional: ship all errors to parent

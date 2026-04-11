@@ -44,7 +44,10 @@ def imagine(
     """
     del asset, n_scenarios, n_steps, seed  # unused until v2
     if not _kronos_available():
-        msg = "Kronos generator selected but the 'kronos' package is not installed. Install weights and retry, or fall back to QUANTFORGE_GENERATOR=gbm."
+        msg = (
+            "Kronos generator selected but the 'kronos' package is not installed. "
+            "Install weights and retry, or fall back to QUANTFORGE_GENERATOR=gbm."
+        )
         raise ModelUnavailable(msg)
     # v2: real Kronos inference wired here.
     msg = "Kronos inference path is a v2 feature and is not wired in v1."
