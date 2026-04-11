@@ -57,9 +57,9 @@ def test_evolve_happy_path() -> None:
         "]"
     )
     client = _multi_step_client(
-        _ARCHITECT_CODE,    # baseline architect
-        _ANALYST_JSON,      # baseline analyst
-        mutator_json,       # mutator
+        _ARCHITECT_CODE,  # baseline architect
+        _ANALYST_JSON,  # baseline analyst
+        mutator_json,  # mutator
     )
     req = EvolveRequest(
         description="Buy and hold SPY as a baseline",

@@ -30,7 +30,9 @@ def _sample_result(simple_strategy_code: str):  # type: ignore[no-untyped-def]
 
 def test_happy_path(simple_strategy_code: str) -> None:
     result = _sample_result(simple_strategy_code)
-    client = _mock('{"summary": "Looks robust.", "verdict": "Your strategy performed near the median of synthetic runs."}')
+    client = _mock(
+        '{"summary": "Looks robust.", "verdict": "Your strategy performed near the median of synthetic runs."}'
+    )
     v = analyze(result, client=client)
     assert v.summary == "Looks robust."
     assert "synthetic" in v.verdict

@@ -7,12 +7,7 @@ export interface ChartCardProps {
   readonly children: ReactNode;
 }
 
-export function ChartCard({
-  title,
-  subtitle,
-  className,
-  children,
-}: ChartCardProps): JSX.Element {
+export function ChartCard({ title, subtitle, className, children }: ChartCardProps): JSX.Element {
   return (
     <section
       className={`animate-fade-in flex flex-col rounded-lg border border-bg-border bg-bg-card p-5 ${className ?? ""}`}

@@ -21,7 +21,9 @@ _TRADING_DAYS_PER_YEAR = 252
 _RUIN_DRAWDOWN_THRESHOLD = -0.5
 
 
-def sharpe_ratio(equity_curve: Sequence[float], *, periods_per_year: int = _TRADING_DAYS_PER_YEAR) -> float:
+def sharpe_ratio(
+    equity_curve: Sequence[float], *, periods_per_year: int = _TRADING_DAYS_PER_YEAR
+) -> float:
     """Annualized Sharpe ratio for an equity curve normalized to start at 1.0.
 
     Returns NaN for a curve with zero volatility (flat equity).

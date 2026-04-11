@@ -23,11 +23,7 @@ export function OverfitGauge({ percentile }: OverfitGaugeProps): JSX.Element {
         <div className="mt-4 h-2 w-full rounded-full bg-bg-border">
           <div
             className={`h-2 rounded-full transition-all ${
-              percentile >= 90
-                ? "bg-loss"
-                : percentile >= 70
-                  ? "bg-info"
-                  : "bg-profit"
+              percentile >= 90 ? "bg-loss" : percentile >= 70 ? "bg-info" : "bg-profit"
             }`}
             style={{ width: `${pct}%` }}
           />

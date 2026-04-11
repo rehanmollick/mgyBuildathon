@@ -44,11 +44,7 @@ def test_happy_path_returns_variants() -> None:
 
 
 def test_invalid_variants_are_dropped() -> None:
-    invalid_code = (
-        "import requests\\n"
-        "def strategy(df):\\n"
-        "    return None"
-    )
+    invalid_code = "import requests\\n" "def strategy(df):\\n" "    return None"
     body = (
         "[\n"
         f'  {{"description": "bad", "code": "{invalid_code}"}},\n'

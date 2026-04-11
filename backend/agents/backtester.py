@@ -92,21 +92,55 @@ def _run_strategy_in_subprocess(
         df = pickle.loads(df_pickle)  # noqa: S301 — trusted pickle from parent process
         safe_globals: dict[str, object] = {
             "__builtins__": {
-                "abs": abs, "all": all, "any": any, "bool": bool, "dict": dict,
-                "enumerate": enumerate, "filter": filter, "float": float, "int": int,
-                "isinstance": isinstance, "iter": iter, "len": len, "list": list,
-                "map": map, "max": max, "min": min, "range": range, "reversed": reversed,
-                "round": round, "set": set, "sorted": sorted, "str": str, "sum": sum,
-                "tuple": tuple, "type": type, "zip": zip, "True": True, "False": False,
-                "None": None, "print": lambda *_a, **_k: None,
+                "abs": abs,
+                "all": all,
+                "any": any,
+                "bool": bool,
+                "dict": dict,
+                "enumerate": enumerate,
+                "filter": filter,
+                "float": float,
+                "int": int,
+                "isinstance": isinstance,
+                "iter": iter,
+                "len": len,
+                "list": list,
+                "map": map,
+                "max": max,
+                "min": min,
+                "range": range,
+                "reversed": reversed,
+                "round": round,
+                "set": set,
+                "sorted": sorted,
+                "str": str,
+                "sum": sum,
+                "tuple": tuple,
+                "type": type,
+                "zip": zip,
+                "True": True,
+                "False": False,
+                "None": None,
+                "print": lambda *_a, **_k: None,
                 "__import__": __import__,
-                "Exception": Exception, "ValueError": ValueError, "TypeError": TypeError,
-                "KeyError": KeyError, "IndexError": IndexError, "ZeroDivisionError": ZeroDivisionError,
-                "ArithmeticError": ArithmeticError, "AttributeError": AttributeError,
-                "RuntimeError": RuntimeError, "StopIteration": StopIteration,
-                "NameError": NameError, "LookupError": LookupError,
-                "getattr": getattr, "hasattr": hasattr, "setattr": setattr,
-                "divmod": divmod, "pow": pow, "slice": slice,
+                "Exception": Exception,
+                "ValueError": ValueError,
+                "TypeError": TypeError,
+                "KeyError": KeyError,
+                "IndexError": IndexError,
+                "ZeroDivisionError": ZeroDivisionError,
+                "ArithmeticError": ArithmeticError,
+                "AttributeError": AttributeError,
+                "RuntimeError": RuntimeError,
+                "StopIteration": StopIteration,
+                "NameError": NameError,
+                "LookupError": LookupError,
+                "getattr": getattr,
+                "hasattr": hasattr,
+                "setattr": setattr,
+                "divmod": divmod,
+                "pow": pow,
+                "slice": slice,
             },
             "pd": pd,
             "np": np,
@@ -114,7 +148,9 @@ def _run_strategy_in_subprocess(
         exec(code, safe_globals)  # noqa: S102 — sandboxed via subprocess + restricted builtins
         strategy_fn = safe_globals.get("strategy")
         if not callable(strategy_fn):
-            out_queue.put(("error", "StrategyExecutionError", "strategy() function not found in code"))
+            out_queue.put(
+                ("error", "StrategyExecutionError", "strategy() function not found in code")
+            )
             return
         result = strategy_fn(df.copy())
         if not isinstance(result, pd.Series):
@@ -233,5 +269,7 @@ def backtest(code: str, markets: MarketSet, *, timeout: float | None = None) -> 
         real=real_metrics,
         synthetic=synthetic,
         probability_of_ruin=stats.probability_of_ruin(max_drawdowns),
-        overfitting_percentile=stats.overfitting_percentile(real_metrics.total_return, total_returns),
+        overfitting_percentile=stats.overfitting_percentile(
+            real_metrics.total_return, total_returns
+        ),
     )

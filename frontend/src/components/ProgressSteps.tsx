@@ -39,17 +39,12 @@ export function ProgressSteps({ current }: ProgressStepsProps): JSX.Element {
               {isDone ? "✓" : i + 1}
             </div>
             <span
-              className={`text-xs font-medium ${
-                isDone || isActive ? "text-white" : "text-muted"
-              }`}
+              className={`text-xs font-medium ${isDone || isActive ? "text-white" : "text-muted"}`}
             >
               {step.label}
             </span>
             {i < STEPS.length - 1 && (
-              <div
-                className={`h-px w-6 ${isDone ? "bg-profit" : "bg-bg-border"}`}
-                aria-hidden
-              />
+              <div className={`h-px w-6 ${isDone ? "bg-profit" : "bg-bg-border"}`} aria-hidden />
             )}
           </div>
         );

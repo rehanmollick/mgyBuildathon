@@ -52,11 +52,7 @@ def simple_strategy_code() -> str:
 @pytest.fixture
 def no_signal_strategy_code() -> str:
     """A strategy that never trades — all-zero signals."""
-    return (
-        "import pandas as pd\n"
-        "def strategy(df):\n"
-        "    return pd.Series(0, index=df.index)\n"
-    )
+    return "import pandas as pd\n" "def strategy(df):\n" "    return pd.Series(0, index=df.index)\n"
 
 
 @pytest.fixture

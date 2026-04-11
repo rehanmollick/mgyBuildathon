@@ -17,8 +17,7 @@ import type {
   NarrateResponse,
 } from "./types";
 
-const BACKEND_URL =
-  process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://127.0.0.1:8000";
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://127.0.0.1:8000";
 
 const DEMO_MODE = process.env.NEXT_PUBLIC_DEMO_MODE === "true";
 
@@ -100,10 +99,7 @@ export async function narrate(req: NarrateRequest): Promise<NarrateResponse> {
 export async function health(): Promise<HealthResponse> {
   const response = await fetch(`${BACKEND_URL}/api/health`);
   if (!response.ok) {
-    throw new ApiError(
-      `${response.status} ${response.statusText}`,
-      response.status,
-    );
+    throw new ApiError(`${response.status} ${response.statusText}`, response.status);
   }
   return (await response.json()) as HealthResponse;
 }

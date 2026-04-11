@@ -14,12 +14,7 @@ import { StrategyInput } from "@/components/StrategyInput";
 import { TabNav } from "@/components/TabNav";
 import { VerdictPlayer } from "@/components/VerdictPlayer";
 import { forge } from "@/lib/api";
-import {
-  colorForReturn,
-  formatNumber,
-  formatPercent,
-  formatSignedPercent,
-} from "@/lib/format";
+import { colorForReturn, formatNumber, formatPercent, formatSignedPercent } from "@/lib/format";
 import type { ForgeResult } from "@/lib/types";
 
 const STEP_SEQUENCE: readonly Step[] = ["parse", "imagine", "test", "analyze"];
@@ -59,8 +54,8 @@ export default function ForgePage(): JSX.Element {
         <header className="space-y-1">
           <h1 className="text-2xl font-bold text-white">Forge a strategy</h1>
           <p className="text-sm text-muted">
-            Describe a strategy in plain English. Claude writes the code, we imagine 200
-            synthetic markets, then we show you whether the backtest was skill or luck.
+            Describe a strategy in plain English. Claude writes the code, we imagine 200 synthetic
+            markets, then we show you whether the backtest was skill or luck.
           </p>
         </header>
 
@@ -135,7 +130,9 @@ export default function ForgePage(): JSX.Element {
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <OverfitGauge percentile={result.result.overfitting_percentile} />
               <ChartCard title="Analyst summary" subtitle="Claude verdict, in one paragraph">
-                <p className={`text-sm leading-relaxed ${colorForReturn(result.result.real.total_return)}`}>
+                <p
+                  className={`text-sm leading-relaxed ${colorForReturn(result.result.real.total_return)}`}
+                >
                   {result.summary}
                 </p>
               </ChartCard>

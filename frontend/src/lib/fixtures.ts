@@ -5,11 +5,7 @@
 
 import type { BacktestResult, ForgeResult, EvolveResult } from "./types";
 
-const buildEquityCurve = (
-  length: number,
-  drift: number,
-  seed: number,
-): number[] => {
+const buildEquityCurve = (length: number, drift: number, seed: number): number[] => {
   let s = seed;
   const rand = (): number => {
     s = (s * 9301 + 49297) % 233280;

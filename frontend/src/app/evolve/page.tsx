@@ -47,8 +47,8 @@ export default function EvolvePage(): JSX.Element {
         <header className="space-y-1">
           <h1 className="text-2xl font-bold text-white">Evolve a strategy</h1>
           <p className="text-sm text-muted">
-            Start from one strategy. We generate ten variants, test each against the
-            same synthetic markets, and rank them by robustness instead of raw return.
+            Start from one strategy. We generate ten variants, test each against the same synthetic
+            markets, and rank them by robustness instead of raw return.
           </p>
         </header>
 

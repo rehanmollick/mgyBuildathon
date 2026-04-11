@@ -11,17 +11,13 @@ describe("MetricCard", () => {
   });
 
   it("applies the profit tone class", () => {
-    const { container } = render(
-      <MetricCard label="Real return" value="+12%" tone="profit" />,
-    );
+    const { container } = render(<MetricCard label="Real return" value="+12%" tone="profit" />);
     const valueNode = container.querySelector(".text-profit");
     expect(valueNode).not.toBeNull();
   });
 
   it("applies the loss tone class", () => {
-    const { container } = render(
-      <MetricCard label="Drawdown" value="-34%" tone="loss" />,
-    );
+    const { container } = render(<MetricCard label="Drawdown" value="-34%" tone="loss" />);
     const valueNode = container.querySelector(".text-loss");
     expect(valueNode).not.toBeNull();
   });

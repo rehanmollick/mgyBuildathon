@@ -28,7 +28,9 @@ export function RuinGauge({ probability }: RuinGaugeProps): JSX.Element {
         <div className={`text-5xl font-bold ${colorFor(probability)}`}>
           {formatPercent(probability)}
         </div>
-        <div className={`mt-2 text-xs font-semibold uppercase tracking-wider ${colorFor(probability)}`}>
+        <div
+          className={`mt-2 text-xs font-semibold uppercase tracking-wider ${colorFor(probability)}`}
+        >
           {labelFor(probability)}
         </div>
       </div>

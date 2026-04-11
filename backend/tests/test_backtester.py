@@ -22,21 +22,13 @@ def test_safe_exec_timeout_raises(ohlcv_df: pd.DataFrame, runaway_strategy_code:
 
 
 def test_safe_exec_exception_raises_execution_error(ohlcv_df: pd.DataFrame) -> None:
-    bad_code = (
-        "import pandas as pd\n"
-        "def strategy(df):\n"
-        "    raise ValueError('boom')\n"
-    )
+    bad_code = "import pandas as pd\n" "def strategy(df):\n" "    raise ValueError('boom')\n"
     with pytest.raises(StrategyExecutionError, match="boom"):
         safe_exec(bad_code, ohlcv_df)
 
 
 def test_safe_exec_wrong_return_type_raises(ohlcv_df: pd.DataFrame) -> None:
-    bad_code = (
-        "import pandas as pd\n"
-        "def strategy(df):\n"
-        "    return 42\n"
-    )
+    bad_code = "import pandas as pd\n" "def strategy(df):\n" "    return 42\n"
     with pytest.raises(StrategyExecutionError):
         safe_exec(bad_code, ohlcv_df)
 
@@ -44,6 +36,7 @@ def test_safe_exec_wrong_return_type_raises(ohlcv_df: pd.DataFrame) -> None:
 def test_simulate_buy_and_hold_matches_close_ratio(ohlcv_df: pd.DataFrame) -> None:
     # Always-long from bar 0: equity at end should equal close[n-1]/close[0].
     import pandas as pd
+
     signals = pd.Series(1, index=ohlcv_df.index)
     equity = _simulate_portfolio(ohlcv_df, signals)
     expected = ohlcv_df["close"].iloc[-1] / ohlcv_df["close"].iloc[1]
@@ -51,7 +44,9 @@ def test_simulate_buy_and_hold_matches_close_ratio(ohlcv_df: pd.DataFrame) -> No
     assert equity[-1] == pytest.approx(expected, rel=1e-10)
 
 
-def test_simulate_never_signals_stays_flat(ohlcv_df: pd.DataFrame, no_signal_strategy_code: str) -> None:
+def test_simulate_never_signals_stays_flat(
+    ohlcv_df: pd.DataFrame, no_signal_strategy_code: str
+) -> None:
     signals = safe_exec(no_signal_strategy_code, ohlcv_df)
     equity = _simulate_portfolio(ohlcv_df, signals)
     assert equity[0] == 1.0

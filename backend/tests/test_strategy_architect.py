@@ -80,10 +80,6 @@ def test_network_error_raises_model_unavailable() -> None:
 
 
 def test_unfenced_response_is_parsed() -> None:
-    code = (
-        "import pandas as pd\n"
-        "def strategy(df):\n"
-        "    return pd.Series(0, index=df.index)\n"
-    )
+    code = "import pandas as pd\n" "def strategy(df):\n" "    return pd.Series(0, index=df.index)\n"
     result = architect("test", client=_mock(code))
     assert "def strategy" in result.source

@@ -51,7 +51,9 @@ def test_deterministic_under_seed() -> None:
 def test_different_seeds_differ() -> None:
     a = imagine("SPY", n_scenarios=3, n_steps=50, seed=1)
     b = imagine("SPY", n_scenarios=3, n_steps=50, seed=999)
-    assert not np.array_equal(a.scenarios[0]["close"].to_numpy(), b.scenarios[0]["close"].to_numpy())
+    assert not np.array_equal(
+        a.scenarios[0]["close"].to_numpy(), b.scenarios[0]["close"].to_numpy()
+    )
 
 
 def test_real_reference_shape() -> None:

@@ -68,7 +68,9 @@ class Settings(BaseSettings):
     @property
     def cors_origins(self) -> list[str]:
         """Comma-separated CORS origins parsed into a list."""
-        return [origin.strip() for origin in self.quantforge_cors_origins.split(",") if origin.strip()]
+        return [
+            origin.strip() for origin in self.quantforge_cors_origins.split(",") if origin.strip()
+        ]
 
 
 @lru_cache(maxsize=1)

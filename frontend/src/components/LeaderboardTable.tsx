@@ -15,10 +15,7 @@ export interface LeaderboardTableProps {
   readonly variants: readonly VariantResult[];
 }
 
-export function LeaderboardTable({
-  baseline,
-  variants,
-}: LeaderboardTableProps): JSX.Element {
+export function LeaderboardTable({ baseline, variants }: LeaderboardTableProps): JSX.Element {
   const rows: readonly VariantResult[] = [baseline, ...variants];
   const [expanded, setExpanded] = useState<number | null>(null);
 
