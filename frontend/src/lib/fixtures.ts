@@ -64,7 +64,16 @@ const buildDemoResult = (drift: number, seed: number): BacktestResult => {
     }
     return worst;
   });
-  const sharpes = synth_curves.map((_, i) => 0.5 + (i % 10) * 0.15);
+  const sharpes = synth_curves.map((curve) => {
+    const rets: number[] = [];
+    for (let i = 1; i < curve.length; i++) {
+      rets.push(curve[i]! / curve[i - 1]! - 1);
+    }
+    const mean = rets.reduce((a, b) => a + b, 0) / rets.length;
+    const variance = rets.reduce((a, b) => a + (b - mean) ** 2, 0) / rets.length;
+    const std = Math.sqrt(variance);
+    return std === 0 ? 0 : (mean / std) * Math.sqrt(252);
+  });
   const ghost_lines = synth_curves.slice(0, 20);
 
   return {
